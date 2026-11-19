@@ -1,550 +1,154 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Name | Academic Homepage</title>
-  <meta name="description" content="Academic homepage of Your Name: research, publications, projects, teaching, and contact." />
+  <meta name="color-scheme" content="dark" />
+  <title>Zhoutian Han | Agentic AI &amp; Data Mining</title>
+  <meta name="description" content="Zhoutian Han is a Ph.D. student in Computer Science at Florida International University (FIU), researching Agentic AI for data mining." />
   <style>
-    :root{
-      --bg: #0b0f17;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.09);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
-      --muted2: rgba(255,255,255,.55);
-      --line: rgba(255,255,255,.12);
-      --accent: #7c9cff;
-      --accent2:#5eead4;
-      --shadow: 0 18px 50px rgba(0,0,0,.35);
-      --radius: 18px;
-      --radius2: 24px;
-      --max: 1080px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    :root {
+      --bg: #0b101a;
+      --surface: #141c2b;
+      --text: #eef2fa;
+      --muted: #b0bdd0;
+      --line: #2c374b;
+      --accent: #a9beff;
+      --teal: #8ee3d4;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: var(--sans);
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body {
+      margin: 0;
       color: var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(124,156,255,.20), transparent 60%),
-        radial-gradient(1000px 500px at 90% 10%, rgba(94,234,212,.14), transparent 55%),
-        radial-gradient(900px 700px at 50% 100%, rgba(124,156,255,.12), transparent 60%),
-        var(--bg);
-      line-height: 1.6;
+      background: radial-gradient(ellipse at 12% 0%, #1b2946 0, transparent 48%), var(--bg);
+      font: 1rem/1.7 var(--sans);
+      -webkit-font-smoothing: antialiased;
     }
-    a{ color: inherit; text-decoration:none; }
-    a:hover{ text-decoration: underline; text-underline-offset: 3px; }
-    .container{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 64px; }
-
-    /* Top nav */
-    .topbar{
-      position: sticky; top:0;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(to bottom, rgba(11,15,23,.92), rgba(11,15,23,.65));
-      border-bottom: 1px solid var(--line);
-      z-index: 20;
+    a { color: inherit; text-underline-offset: .25em; }
+    a:hover { color: var(--teal); }
+    a:focus-visible { outline: 3px solid var(--teal); outline-offset: 5px; border-radius: 4px; }
+    .skip-link { position: absolute; left: 16px; top: -100px; padding: 10px 16px; background: var(--surface); z-index: 100; }
+    .skip-link:focus { top: 10px; }
+    .container { width: min(100% - 48px, 1040px); margin-inline: auto; }
+    .topbar { position: sticky; top: 0; z-index: 10; background: #0b101af2; border-bottom: 1px solid var(--line); backdrop-filter: blur(12px); }
+    .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; min-height: 76px; }
+    .brand { font-weight: 650; letter-spacing: .01em; text-decoration: none; white-space: nowrap; }
+    nav { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+    nav a { color: var(--muted); font-size: .875rem; text-decoration: none; padding-block: 10px; }
+    nav a:hover { color: var(--text); }
+    main { padding-block: 56px 24px; }
+    .hero { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 48px; align-items: center; padding-bottom: 52px; }
+    .portrait { width: 240px; height: 320px; display: block; object-fit: cover; border-radius: 18px; border: 1px solid #43516a; background: var(--surface); box-shadow: 0 16px 48px #0003; }
+    .eyebrow { margin: 0 0 10px; color: var(--teal); font-size: .875rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+    h1 { margin: 0 0 12px; font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1.12; letter-spacing: -.04em; font-weight: 700; }
+    .role { margin: 0; font-size: 1.125rem; font-weight: 500; }
+    .university { margin: 2px 0 0; color: var(--muted); }
+    .intro { color: var(--muted); max-width: 58ch; margin: 22px 0 0; }
+    .intro strong { color: var(--text); font-weight: 600; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .button { display: inline-flex; justify-content: center; align-items: center; min-height: 44px; padding: 8px 18px; border: 1px solid #465675; border-radius: 9px; font-size: .9375rem; font-weight: 600; text-decoration: none; }
+    .button.primary { background: #b6c7ff; color: #101b35; border-color: #b6c7ff; }
+    .button.primary:hover { background: #d0dcff; border-color: #d0dcff; }
+    .button.secondary:hover { background: #1c2940; color: var(--text); }
+    .research { padding: 30px 32px; border: 1px solid #34435c; border-radius: 18px; background: linear-gradient(115deg, #19263c, #12232a); }
+    h2 { font-size: 1.5rem; line-height: 1.3; letter-spacing: -.025em; margin: 0 0 16px; }
+    .research h2 { font-size: clamp(1.6rem, 3.5vw, 2rem); margin-bottom: 14px; }
+    .research p:not(.eyebrow) { color: var(--muted); margin: 0; max-width: 73ch; }
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; padding: 0; list-style: none; }
+    .tags li { color: #d2deef; border: 1px solid #425369; border-radius: 7px; padding: 4px 12px; font-size: .875rem; }
+    .details { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; padding-block: 42px 20px; }
+    .details section { border-top: 1px solid var(--line); padding-top: 24px; min-width: 0; }
+    .details h2 { font-size: 1.25rem; margin-bottom: 18px; }
+    .education-title { font-size: 1rem; font-weight: 600; margin: 0; }
+    .details p { margin: 3px 0 0; color: var(--muted); }
+    .details .status { margin-top: 12px; color: var(--teal); font-size: .875rem; }
+    .contact-list { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px 20px; margin: 0; }
+    .contact-list dt { color: var(--muted); font-size: .9375rem; }
+    .contact-list dd { margin: 0; overflow-wrap: anywhere; }
+    .contact-list a { color: var(--accent); }
+    .contact-list a:hover { color: var(--teal); }
+    footer { border-top: 1px solid var(--line); margin-top: 16px; padding-block: 24px 32px; color: var(--muted); font-size: .875rem; }
+    @media (max-width: 720px) {
+      html { scroll-padding-top: 130px; }
+      .container { width: min(100% - 36px, 1040px); }
+      .topbar-inner { flex-wrap: wrap; gap: 0 20px; padding-block: 14px 8px; }
+      nav { width: 100%; justify-content: space-between; gap: 4px 10px; }
+      main { padding-top: 32px; }
+      .hero { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-bottom: 32px; }
+      .portrait { width: 180px; height: 240px; border-radius: 14px; }
+      .intro { margin-top: 18px; }
+      .research { padding: 24px; }
+      .details { grid-template-columns: 1fr; gap: 28px; padding-top: 32px; }
     }
-    .topbar-inner{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 14px 18px;
-      display:flex;
-      gap:14px;
-      align-items:center;
-      justify-content: space-between;
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
     }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight: 650;
-      letter-spacing:.2px;
-    }
-    .dot{
-      width:10px; height:10px; border-radius:999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 0 4px rgba(124,156,255,.14);
-    }
-    nav{
-      display:flex; gap: 14px; flex-wrap: wrap;
-      font-size: 14px;
-      color: var(--muted);
-    }
-    nav a{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-    }
-    nav a:hover{
-      text-decoration:none;
-      border-color: var(--line);
-      background: rgba(255,255,255,.04);
-    }
-
-    /* Hero */
-    .hero{
-      margin-top: 20px;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-    @media (max-width: 860px){
-      .hero{ grid-template-columns: 1fr; }
-    }
-    .card{
-      background: linear-gradient(180deg, var(--card), rgba(255,255,255,.04));
-      border: 1px solid var(--line);
-      border-radius: var(--radius2);
-      box-shadow: var(--shadow);
-    }
-    .hero-left{ padding: 22px; }
-    .hero-right{ padding: 18px; display:flex; flex-direction:column; gap:12px; }
-
-    .identity{ display:flex; gap: 16px; align-items:center; }
-    .avatar{
-      width: 88px; height: 88px; border-radius: 22px;
-      background:
-        linear-gradient(135deg, rgba(124,156,255,.25), rgba(94,234,212,.18)),
-        url("https://images.unsplash.com/photo-1520975958225-16b0c3b51b1b?auto=format&fit=crop&w=256&q=60");
-      background-size: cover;
-      background-position: center;
-      border: 1px solid var(--line);
-      flex: 0 0 auto;
-    }
-    .name{ font-size: 28px; font-weight: 750; margin:0; }
-    .title{ margin: 4px 0 0; color: var(--muted); }
-    .tags{
-      margin-top: 14px;
-      display:flex; flex-wrap: wrap; gap: 8px;
-    }
-    .tag{
-      font-size: 12px;
-      color: rgba(255,255,255,.78);
-      border: 1px solid var(--line);
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.03);
-    }
-    .hero-text{ margin-top: 14px; color: var(--muted); }
-    .hero-actions{ margin-top: 16px; display:flex; gap: 10px; flex-wrap: wrap; }
-    .btn{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-      font-weight: 600;
-      font-size: 14px;
-      text-decoration:none !important;
-    }
-    .btn:hover{ background: rgba(255,255,255,.07); }
-    .btn.primary{
-      border-color: rgba(124,156,255,.45);
-      background: linear-gradient(135deg, rgba(124,156,255,.22), rgba(94,234,212,.12));
-    }
-    .kbd{
-      font-family: var(--mono);
-      font-size: 12px;
-      color: rgba(255,255,255,.72);
-      border: 1px solid var(--line);
-      padding: 2px 8px;
-      border-radius: 10px;
-      background: rgba(0,0,0,.18);
-    }
-
-    /* Sidebar blocks */
-    .mini{
-      padding: 14px 14px;
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-    }
-    .mini h3{
-      font-size: 13px; margin: 0 0 10px; letter-spacing: .3px;
-      color: rgba(255,255,255,.86);
-      text-transform: uppercase;
-    }
-    .mini p, .mini li{ color: var(--muted); margin: 0; font-size: 14px; }
-    .mini ul{ margin: 0; padding-left: 18px; }
-    .pillrow{ display:flex; flex-wrap: wrap; gap:8px; margin-top: 10px; }
-    .pill{
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color: rgba(255,255,255,.75);
-    }
-
-    /* Sections */
-    section{ margin-top: 18px; }
-    .section-card{ padding: 18px; }
-    .section-title{
-      display:flex; align-items:flex-end; justify-content: space-between; gap: 12px;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 10px;
-      margin-bottom: 14px;
-    }
-    .section-title h2{ margin:0; font-size: 18px; letter-spacing: .2px; }
-    .section-title span{ color: var(--muted2); font-size: 13px; }
-
-    /* Lists */
-    .grid{
-      display:grid; gap: 12px;
-      grid-template-columns: 1fr 1fr;
-    }
-    @media (max-width: 860px){
-      .grid{ grid-template-columns: 1fr; }
-    }
-    .item{
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      border-radius: var(--radius);
-      padding: 14px;
-    }
-    .item h3{ margin:0 0 6px; font-size: 15px; }
-    .meta{ color: var(--muted2); font-size: 12.5px; margin-bottom: 8px; }
-    .item p{ margin:0; color: var(--muted); font-size: 14px; }
-    .links{ margin-top: 10px; display:flex; gap: 10px; flex-wrap: wrap; }
-    .link{
-      font-size: 13px;
-      color: rgba(255,255,255,.86);
-      border-bottom: 1px dashed rgba(255,255,255,.28);
-      text-decoration:none !important;
-    }
-    .link:hover{ border-bottom-style: solid; }
-
-    /* Publications */
-    .pub{
-      display:grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items:start;
-      padding: 12px 0;
-      border-bottom: 1px dashed rgba(255,255,255,.14);
-    }
-    .pub:last-child{ border-bottom: none; }
-    .pub-title{ font-weight: 650; }
-    .pub-authors{ color: var(--muted); font-size: 13.5px; margin-top: 3px; }
-    .pub-venue{ color: var(--muted2); font-size: 12.5px; margin-top: 2px; }
-    .badge{
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(124,156,255,.40);
-      color: rgba(255,255,255,.85);
-      background: rgba(124,156,255,.12);
-      white-space: nowrap;
-    }
-
-    /* Footer */
-    footer{
-      margin-top: 24px;
-      color: var(--muted2);
-      font-size: 13px;
-      text-align:center;
-    }
-    .muted{ color: var(--muted); }
   </style>
 </head>
-
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <span class="dot"></span>
-        <span>Your Name</span>
-        <span class="muted">·</span>
-        <span class="muted">Academic</span>
-      </div>
-      <nav aria-label="Site">
+    <div class="container topbar-inner">
+      <a class="brand" href="#about">Zhoutian Han</a>
+      <nav aria-label="Main navigation">
         <a href="#about">About</a>
         <a href="#research">Research</a>
-        <a href="#publications">Publications</a>
-        <a href="#projects">Projects</a>
-        <a href="#teaching">Teaching</a>
+        <a href="#education">Education</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main class="container">
-    <!-- HERO -->
-    <div class="hero">
-      <div class="card hero-left" id="about">
-        <div class="identity">
-          <div class="avatar" role="img" aria-label="Profile photo"></div>
-          <div>
-            <h1 class="name">Your Name</h1>
-            <p class="title">PhD Student · Department / Lab · University</p>
-            <div class="tags">
-              <span class="tag">ML Systems</span>
-              <span class="tag">GPU Compression</span>
-              <span class="tag">Federated Learning</span>
-              <span class="tag">CUDA</span>
-            </div>
-          </div>
-        </div>
-
-        <p class="hero-text">
-          I work on <b>efficient ML training systems</b>, focusing on GPU-friendly compression,
-          communication-efficient optimization, and scalable distributed/federated learning.
-          I like building practical systems and validating them with real benchmarks.
-        </p>
-
-        <div class="hero-actions">
-          <a class="btn primary" href="#publications" title="Jump to publications">
-            <span>📄 Publications</span>
-            <span class="kbd">P</span>
-          </a>
-          <a class="btn" href="#" title="Replace with your CV PDF link">
-            <span>⬇️ CV</span>
-            <span class="kbd">PDF</span>
-          </a>
-          <a class="btn" href="#" title="Replace with your Google Scholar link">
-            <span>🎓 Scholar</span>
-          </a>
-          <a class="btn" href="#" title="Replace with your GitHub link">
-            <span>💻 GitHub</span>
-          </a>
+  <main class="container" id="main">
+    <section class="hero" id="about" aria-labelledby="name">
+      <img class="portrait" src="profile_photo.png" alt="Portrait of Zhoutian Han" width="240" height="320" fetchpriority="high" />
+      <div>
+        <p class="eyebrow">Computer Science · FIU</p>
+        <h1 id="name">Zhoutian Han</h1>
+        <p class="role">Ph.D. Student in Computer Science</p>
+        <p class="university">Florida International University (FIU)</p>
+        <p class="intro">I am a Ph.D. student in Computer Science at Florida International University. My research focuses on <strong>Agentic AI for data mining</strong>.</p>
+        <div class="actions">
+          <a class="button primary" href="mailto:ztislaw@gmail.com">Email me</a>
+          <a class="button secondary" href="https://github.com/ztislaw">GitHub</a>
         </div>
       </div>
+    </section>
 
-      <aside class="card hero-right">
-        <div class="mini">
-          <h3>News</h3>
-          <ul>
-            <li><b>2026-01</b> Submitted a paper on GPU entropy coding for gradients.</li>
-            <li><b>2025-12</b> Started research on nvCOMP batching + chunk tuning.</li>
-            <li><b>2025-10</b> Joined <span class="muted">Your Lab</span>.</li>
-          </ul>
-        </div>
+    <section class="research" id="research" aria-labelledby="research-title">
+      <p class="eyebrow">Research focus</p>
+      <h2 id="research-title">Agentic AI for Data Mining</h2>
+      <p>My research lies at the intersection of Agentic AI and data mining. I am interested in how AI agents can support data analysis and knowledge discovery.</p>
+      <ul class="tags" aria-label="Research interests">
+        <li>Agentic AI</li>
+        <li>Data Mining</li>
+      </ul>
+    </section>
 
-        <div class="mini">
-          <h3>Quick Info</h3>
-          <p><b>Email:</b> yourname@university.edu</p>
-          <p><b>Office:</b> Building · Room</p>
-          <p><b>Location:</b> City, Country</p>
-          <div class="pillrow">
-            <span class="pill">Open to collaborations</span>
-            <span class="pill">Internship 2026</span>
-            <span class="pill">Systems + ML</span>
-          </div>
-        </div>
-
-        <div class="mini">
-          <h3>Research Interests</h3>
-          <p class="muted">
-            Gradient/activation compression · GPU kernels · communication-efficient training ·
-            federated learning · profiling & performance engineering
-          </p>
-        </div>
-      </aside>
+    <div class="details">
+      <section id="education" aria-labelledby="education-title">
+        <h2 id="education-title">Education</h2>
+        <h3 class="education-title">Florida International University</h3>
+        <p>Ph.D. in Computer Science</p>
+        <p class="status">In progress</p>
+      </section>
+      <section id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact</h2>
+        <dl class="contact-list">
+          <dt>Email</dt>
+          <dd><a href="mailto:ztislaw@gmail.com">ztislaw@gmail.com</a></dd>
+          <dt>GitHub</dt>
+          <dd><a href="https://github.com/ztislaw">github.com/ztislaw</a></dd>
+        </dl>
+      </section>
     </div>
-
-    <!-- RESEARCH -->
-    <section class="card section-card" id="research">
-      <div class="section-title">
-        <h2>Research</h2>
-        <span>What I’m currently working on</span>
-      </div>
-
-      <div class="grid">
-        <div class="item">
-          <h3>GPU-friendly Entropy Coding for Compressed Gradients</h3>
-          <div class="meta">nvCOMP · batched Zstd/Huffman · chunk tuning · overlap</div>
-          <p>
-            Designing a pipeline that reduces communication without becoming a training-time bottleneck.
-            Focus: microbench, kernel-only vs E2E, and realistic multi-layer traces.
-          </p>
-          <div class="links">
-            <a class="link" href="#">Project notes</a>
-            <a class="link" href="#">Benchmarks</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h3>Communication-efficient Training & Federated Learning</h3>
-          <div class="meta">FedAvg · client/server simulation · privacy-preserving ML</div>
-          <p>
-            Investigating how lossy+lossless hybrid compression interacts with convergence and system throughput.
-          </p>
-          <div class="links">
-            <a class="link" href="#">Reproducibility</a>
-            <a class="link" href="#">Datasets</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h3>Performance Engineering</h3>
-          <div class="meta">CUDA events · Nsight · memory traffic accounting</div>
-          <p>
-            Profiling kernels with correct timing windows, avoiding misleading “GB/s” claims, and
-            building reliable evaluation harnesses.
-          </p>
-          <div class="links">
-            <a class="link" href="#">Profiling guide</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h3>Systems Prototypes</h3>
-          <div class="meta">C++/CUDA · PyTorch integration · gRPC/MPI</div>
-          <p>
-            Building minimal, reusable components that plug into training stacks and enable controlled experiments.
-          </p>
-          <div class="links">
-            <a class="link" href="#">Code</a>
-            <a class="link" href="#">Docs</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PUBLICATIONS -->
-    <section class="card section-card" id="publications">
-      <div class="section-title">
-        <h2>Selected Publications</h2>
-        <span>Replace these with your real papers</span>
-      </div>
-
-      <div class="pub">
-        <div>
-          <div class="pub-title">Efficient GPU Entropy Coding for Gradient Compression</div>
-          <div class="pub-authors">Your Name, Coauthor A, Coauthor B</div>
-          <div class="pub-venue">Conference/Workshop · 2026</div>
-          <div class="links">
-            <a class="link" href="#">Paper</a>
-            <a class="link" href="#">Code</a>
-            <a class="link" href="#">BibTeX</a>
-          </div>
-        </div>
-        <span class="badge">Preprint</span>
-      </div>
-
-      <div class="pub">
-        <div>
-          <div class="pub-title">Communication-efficient Federated Training with Hybrid Compression</div>
-          <div class="pub-authors">Your Name, Coauthor C</div>
-          <div class="pub-venue">Journal/Conference · 2025</div>
-          <div class="links">
-            <a class="link" href="#">Paper</a>
-            <a class="link" href="#">Slides</a>
-          </div>
-        </div>
-        <span class="badge">Peer-reviewed</span>
-      </div>
-
-      <div class="pub">
-        <div>
-          <div class="pub-title">A Practical Guide to Measuring Kernel-only vs E2E Throughput</div>
-          <div class="pub-authors">Your Name</div>
-          <div class="pub-venue">Tech report · 2025</div>
-          <div class="links">
-            <a class="link" href="#">PDF</a>
-          </div>
-        </div>
-        <span class="badge">Report</span>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section class="card section-card" id="projects">
-      <div class="section-title">
-        <h2>Projects</h2>
-        <span>Small notes that make your page feel “alive”</span>
-      </div>
-
-      <div class="grid">
-        <div class="item">
-          <h3>Gradient Compression Microbench Suite</h3>
-          <div class="meta">CUDA · nvCOMP · batching · chunk size sweep</div>
-          <p>Reproducible benchmark harness for sign/magnitude/residual/entropy-coding stages with clean timing.</p>
-          <div class="links">
-            <a class="link" href="#">GitHub</a>
-            <a class="link" href="#">Results</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <h3>FL Simulation Toolkit</h3>
-          <div class="meta">PyTorch · gRPC · MPI</div>
-          <p>Client-server experiments under realistic communication cost models, configurable for many compressors.</p>
-          <div class="links">
-            <a class="link" href="#">Docs</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TEACHING -->
-    <section class="card section-card" id="teaching">
-      <div class="section-title">
-        <h2>Teaching</h2>
-        <span>Optional</span>
-      </div>
-
-      <div class="grid">
-        <div class="item">
-          <h3>TA — CSxxx: Systems for ML</h3>
-          <div class="meta">Fall 2025 · University</div>
-          <p>Topics: profiling, GPU memory hierarchy, distributed training basics.</p>
-        </div>
-        <div class="item">
-          <h3>Mentoring</h3>
-          <div class="meta">Undergrad / Master’s</div>
-          <p>Happy to help with CUDA basics, benchmarking hygiene, and research writing iteration.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="card section-card" id="contact">
-      <div class="section-title">
-        <h2>Contact</h2>
-        <span>Let people reach you</span>
-      </div>
-
-      <div class="grid">
-        <div class="item">
-          <h3>Email</h3>
-          <p><a href="mailto:yourname@university.edu">yourname@university.edu</a></p>
-          <p class="muted">If you email, include a clear subject line and context.</p>
-        </div>
-
-        <div class="item">
-          <h3>Links</h3>
-          <p class="muted">Replace with your own:</p>
-          <div class="links">
-            <a class="link" href="#">Google Scholar</a>
-            <a class="link" href="#">GitHub</a>
-            <a class="link" href="#">LinkedIn</a>
-            <a class="link" href="#">Twitter/X</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <div>© <span id="year"></span> Your Name · Built as a single static HTML file.</div>
-    </footer>
   </main>
 
+  <footer class="container">© <span id="year">2026</span> Zhoutian Han</footer>
   <script>
-    // tiny enhancement: current year
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // optional: keyboard shortcut "P" to jump to publications
-    window.addEventListener("keydown", (e) => {
-      if (e.key.toLowerCase() === "p" && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        const el = document.querySelector("#publications");
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }
-    });
   </script>
 </body>
 </html>
