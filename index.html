@@ -7,220 +7,142 @@
   <title>Zhoutian Han | Agentic AI &amp; Data Mining</title>
   <meta name="description" content="Zhoutian Han is a Ph.D. student in Computer Science at Florida International University (FIU). His research focuses on Agentic AI for data mining." />
   <style>
+
     :root {
-      --paper: #ffffff;
-      --ink: #263247;
-      --heading: #142949;
-      --muted: #5e6c7c;
-      --link: #2858a0;
-      --line: #e0e5ec;
-      --gold: #b18b36;
+      --ink: #2c4058;
+      --heading: #193451;
+      --muted: #596d83;
+      --link: #315e94;
+      --gold: #ad8d50;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 110px; background: var(--paper); }
-    body {
-      min-height: 100vh;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      background: var(--paper);
-      color: var(--ink);
-      font: 1rem/1.8 var(--font);
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: var(--link); text-decoration: none; text-underline-offset: .22em; }
+    html { scroll-behavior: smooth; scroll-padding-top: 28px; background: #eaf2fa; }
+    body { position: relative; min-height: 100vh; margin: 0; display: flex; flex-direction: column; overflow-x: clip; color: var(--ink); font: 1rem/1.85 var(--font); -webkit-font-smoothing: antialiased; }
+    a { color: var(--link); text-decoration: none; text-underline-offset: .25em; }
     a:hover { text-decoration: underline; }
-    a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-offset: 5px; border-radius: 3px; }
-    .container { width: min(100% - 64px, 1120px); margin-inline: auto; }
-    .skip-link { position: absolute; z-index: 30; top: -100px; left: 16px; padding: 8px 16px; background: var(--paper); }
+    a:focus-visible { outline: 2px solid var(--link); outline-offset: 5px; border-radius: 3px; }
+    .skip-link { position: absolute; z-index: 30; top: -100px; left: 16px; padding: 8px 16px; background: #f6faff; }
     .skip-link:focus { top: 10px; }
-    .site-header { position: sticky; top: 0; z-index: 20; background: #fffffff5; border-top: 3px solid var(--heading); border-bottom: 1px solid var(--line); }
-    .header-inner { min-height: 76px; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
-    .brand { color: var(--heading); font-size: 1.0625rem; font-weight: 650; white-space: nowrap; }
-    .brand:hover { text-decoration: none; }
-    nav { display: flex; flex-wrap: wrap; gap: 8px 28px; }
-    nav a { color: var(--muted); font-size: .9375rem; padding-block: 10px; }
-    nav a:hover { color: var(--link); }
-    .layout { flex: 1; display: grid; grid-template-columns: 264px minmax(0, 1fr); gap: 72px; align-items: start; padding-top: 56px; padding-bottom: 48px; }
-    .profile { text-align: center; min-width: 0; }
-    .portrait-frame { width: 222px; max-width: 100%; margin: 0 auto 23px; padding: 5px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); }
-    .portrait { display: block; width: 100%; height: auto; border-radius: 3px; }
-    h1 { color: var(--heading); margin: 0 0 8px; font-size: 1.875rem; line-height: 1.25; letter-spacing: -.035em; font-weight: 700; }
-    .role { color: var(--ink); margin: 0; font-size: 1rem; }
-    .affiliation { margin: 8px 0 0; color: var(--muted); font-size: .9375rem; line-height: 1.65; }
-    .profile-rule { width: 38px; border: 0; border-top: 2px solid var(--gold); margin: 22px auto; }
+
+    /* The landscape keeps its full width; the sky softly fades into the page. */
+    .background-scene { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: linear-gradient(180deg, #e7f0fa, #f2f7fc 65%, #e8f0f8); }
+    .scene-art { position: absolute; inset: -1%; transform: translate3d(var(--scene-x, 0px), var(--scene-y, 0px), 0); transition: transform .9s ease-out; }
+    .scene-image { position: absolute; left: 0; bottom: 0; width: 100%; height: auto; display: block; mask-image: linear-gradient(180deg, transparent 0%, #000 17%, #000 100%); -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 17%, #000 100%); animation: landscape-breathe 36s ease-in-out infinite alternate; transform-origin: center bottom; }
+    .scene-wash { position: absolute; inset: 0; background: radial-gradient(ellipse 40% 58% at 51% 31%, #f5f9fd45, transparent 100%); }
+    .scene-crest { position: absolute; top: 11%; right: 5%; width: clamp(60px, 5vw, 86px); height: auto; opacity: .11; animation: crest-float 9s ease-in-out infinite; }
+    .snow { position: absolute; inset: 0; overflow: hidden; }
+    .snowflake { position: absolute; top: -15%; left: var(--left); width: var(--size); height: var(--size); border-radius: 50%; background: #fff; opacity: .45; animation: snow-fall var(--duration) linear infinite; animation-delay: var(--delay); }
+    .snowflake:nth-child(3n) { background: #adc3d8; opacity: .24; }
+    .snowflake:nth-child(7n) { background: #d7c69f; opacity: .3; }
+    .scenic-animated { animation-play-state: paused; }
+    .motion-running .scenic-animated { animation-play-state: running; }
+    @keyframes landscape-breathe { from { transform: scale(1); } to { transform: scale(1.018); } }
+    @keyframes snow-fall { from { transform: translate3d(0, -8vh, 0); } to { transform: translate3d(var(--drift), 125vh, 0); } }
+
+    /* An edge-free pool of pale light supports the text without a card boundary. */
+    .layout {
+      position: relative;
+      isolation: isolate;
+      z-index: 1;
+      width: min(76%, 1030px);
+      margin: clamp(48px, 7vh, 88px) auto 52px;
+      padding: 18px 12px;
+      display: grid;
+      grid-template-columns: 224px minmax(0, 1fr);
+      align-items: start;
+      gap: 64px;
+    }
+    .layout::before { content: ""; position: absolute; z-index: -1; inset: -65px -100px -70px; pointer-events: none; background: radial-gradient(ellipse at 51% 42%, #f7fbfff0 0%, #f7fbffcc 33%, #f3f8fc7d 59%, #edf5fc24 76%, transparent 94%); filter: blur(22px); }
+    .profile, .content { min-width: 0; text-shadow: 0 1px 14px #ffffff8c; }
+    .profile { text-align: center; }
+    .portrait-frame { width: 194px; max-width: 100%; margin: 0 auto 25px; border-radius: 13px; overflow: hidden; box-shadow: 0 12px 34px #29415e16; }
+    .portrait { display: block; width: 100%; height: auto; }
+    h1 { color: var(--heading); margin: 0 0 10px; font-size: 1.875rem; line-height: 1.2; letter-spacing: -.035em; font-weight: 700; }
+    .role { margin: 0; font-size: .9375rem; line-height: 1.85; }
+    .affiliation { margin: 10px 0 0; color: var(--muted); font-size: .875rem; line-height: 1.7; }
+    .profile-rule { width: 26px; border: 0; border-top: 1px solid var(--gold); margin: 22px auto; }
     .contact { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: .9375rem; }
-    .contact a { overflow-wrap: anywhere; max-width: 100%; }
+    .contact a { max-width: 100%; overflow-wrap: anywhere; }
     .contact a:last-child { font-weight: 600; }
-    .content { min-width: 0; }
+    .content { padding-top: 0; }
     .content section + section { margin-top: 34px; }
-    h2 { display: flex; align-items: center; gap: 18px; margin: 0 0 17px; color: var(--heading); font-size: 1.4rem; line-height: 1.4; font-weight: 650; letter-spacing: -.02em; }
-    h2::after { content: ""; flex: 1; min-width: 16px; height: 1px; background: var(--line); }
+    h2 { display: flex; align-items: center; gap: 20px; color: var(--heading); margin: 0 0 16px; font-size: 1.35rem; line-height: 1.4; font-weight: 650; letter-spacing: -.02em; }
+    h2::after { content: ""; flex: 1; min-width: 16px; height: 1px; background: linear-gradient(90deg, #6e87a52e, #6e87a500); }
     .content p { margin: 0 0 14px; }
     .content p:last-child { margin-bottom: 0; }
     .intro { font-size: 1.0625rem; }
     strong { color: var(--heading); font-weight: 600; }
-    .research-focus { margin-bottom: 8px !important; color: var(--link); font-size: 1.0625rem; font-weight: 600; }
+    .research-focus { margin-bottom: 8px !important; color: var(--link); font-size: 1rem; font-weight: 600; }
     .research-copy { max-width: 64ch; }
     .education-entry { display: flex; justify-content: space-between; align-items: baseline; gap: 12px 24px; }
     h3 { margin: 0; font-size: 1rem; line-height: 1.65; font-weight: 600; color: var(--heading); }
-    .degree { margin-top: 3px !important; color: var(--muted); }
+    .degree { color: var(--muted); margin-top: 3px !important; }
     .education-status { color: var(--muted); font-size: .875rem; white-space: nowrap; }
-    .madrid-card {
-      position: relative;
-      display: grid;
-      grid-template-columns: 150px minmax(0, 1fr);
-      gap: 24px;
-      align-items: center;
-      padding: 20px 26px 20px 18px;
-      border: 1px solid #e4e7ee;
-      border-radius: 14px;
-      background: linear-gradient(115deg, #fafbff, #fff 60%, #fffcf5);
-    }
-    .crest-link { position: relative; display: grid; place-items: center; width: 150px; height: 160px; border-radius: 12px; }
-    .crest-link::before { content: ""; position: absolute; inset: 20px 15px; border-radius: 50%; background: radial-gradient(circle, #fff 35%, #eaf0fc80 68%, transparent 70%); }
-    .crest-orbit { position: absolute; inset: 14px 9px; border: 1px solid #d3b26077; border-radius: 50%; animation: crest-orbit 18s linear infinite; pointer-events: none; }
-    .crest-orbit::after { content: ""; position: absolute; top: 14px; left: 14px; width: 5px; height: 5px; border-radius: 50%; background: #c2a052; box-shadow: 0 0 9px #d4b56466; }
-    .crest-orbit.secondary { inset: 5px 0; border-color: #c3cfe344; animation-duration: 25s; animation-direction: reverse; }
-    .crest-orbit.secondary::after { width: 4px; height: 4px; top: 19px; left: 19px; background: #8ca8d0; box-shadow: none; }
-    .crest-tilt { position: relative; display: block; transition: transform .35s ease; transform: perspective(550px) rotateY(0) rotateX(0); }
-    .crest-image { display: block; width: 112px; height: 112px; object-fit: contain; filter: drop-shadow(0 8px 7px #1a2d4c20); animation: crest-float 5.5s ease-in-out infinite; }
+
+    .madrid-card { display: grid; grid-template-columns: 98px minmax(0, 1fr); align-items: center; gap: 18px; padding: 2px 0; }
+    .crest-link { position: relative; display: grid; place-items: center; width: 98px; height: 112px; border-radius: 50%; }
+    .crest-orbit { position: absolute; inset: 15px 8px; border: 1px solid #c5a4564a; border-radius: 50%; animation: crest-orbit 22s linear infinite; pointer-events: none; }
+    .crest-orbit::after { content: ""; position: absolute; top: 9px; left: 9px; width: 3px; height: 3px; border-radius: 50%; background: #bea365; }
+    .crest-orbit.secondary { inset: 7px 0; border-color: #aec2dc2e; animation-duration: 30s; animation-direction: reverse; }
+    .crest-orbit.secondary::after { top: 12px; left: 12px; background: #99b0ce; }
+    .crest-tilt { position: relative; display: block; transition: transform .4s ease; transform: perspective(550px) rotateY(0); }
+    .crest-image { display: block; width: 78px; height: 78px; object-fit: contain; filter: drop-shadow(0 6px 8px #1a2d4c14); animation: crest-float 7s ease-in-out infinite; }
     .madrid-card .animated { animation-play-state: paused; }
     .madrid-card.is-playing .animated { animation-play-state: running; }
     .madrid-copy { min-width: 0; }
-    .madrid-copy h3 { font-size: 1.5rem; line-height: 1.35; letter-spacing: -.025em; margin-bottom: 8px; }
-    .madrid-copy p { color: var(--muted); margin-bottom: 0; font-size: 1rem; }
-    .madrid-copy strong { font-weight: 600; }
-    .motion-toggle { display: inline-flex; align-items: center; min-height: 36px; margin-top: 14px; padding: 5px 12px; border: 1px solid #dbe2ec; border-radius: 7px; background: #fff; color: var(--muted); font: inherit; font-size: .875rem; cursor: pointer; }
-    .motion-toggle:hover { border-color: #a9bcd8; color: var(--link); }
-    .motion-toggle[hidden] { display: none; }
-    @keyframes crest-float {
-      0%, 100% { transform: translateY(3px) rotate(-1deg); }
-      50% { transform: translateY(-5px) rotate(1deg); }
-    }
+    .madrid-copy h3 { font-size: 1.2rem; line-height: 1.4; margin-bottom: 8px; letter-spacing: -.015em; }
+    .madrid-copy p { color: var(--muted); font-size: .9375rem; }
+    @keyframes crest-float { 0%, 100% { transform: translateY(2px); } 50% { transform: translateY(-3px); } }
     @keyframes crest-orbit { to { transform: rotate(360deg); } }
     @media (hover: hover) and (pointer: fine) {
-      .madrid-card.is-playing .crest-link:hover .crest-tilt { transform: perspective(550px) rotateY(14deg) rotateX(-7deg) scale(1.05); }
+      .madrid-card.is-playing .crest-link:hover .crest-tilt { transform: perspective(550px) rotateY(10deg) scale(1.04); }
     }
     .madrid-card.is-playing .crest-link:focus-visible .crest-tilt { transform: perspective(550px) rotateY(10deg) scale(1.04); }
-    .site-footer { border-top: 1px solid var(--line); padding-block: 23px 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px 20px; color: var(--muted); font-size: .875rem; }
+    .site-footer { position: relative; z-index: 1; width: min(76%, 1030px); margin: auto auto 0; padding: 20px 12px 25px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px 20px; color: #657a90; font-size: .8125rem; text-shadow: 0 1px 8px #ffffffb3; }
     .site-footer p { margin: 0; }
-    @media (max-width: 960px) {
-      .layout { grid-template-columns: 230px minmax(0, 1fr); gap: 40px; }
-      .education-entry { flex-wrap: wrap; gap: 4px; }
-    }
-    @media (max-width: 760px) {
-      html { scroll-padding-top: 30px; }
-      .container { width: min(100% - 40px, 640px); }
-      .site-header { position: static; }
-      .header-inner { flex-direction: column; align-items: flex-start; gap: 2px; padding-block: 15px 10px; }
-      nav { width: 100%; gap: 2px 20px; }
-      nav a { font-size: .875rem; padding-block: 6px; }
-      .layout { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 32px; padding-bottom: 36px; }
-      .profile { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 0 26px; text-align: left; align-items: start; }
-      .portrait-frame { grid-column: 1; grid-row: 1 / 7; width: 160px; margin: 0; padding: 4px; }
-      .profile h1 { grid-column: 2; font-size: 1.65rem; margin-top: 4px; }
-      .profile .role, .profile .affiliation, .profile .contact { grid-column: 2; }
-      .profile-rule { grid-column: 2; margin: 15px 0; width: 28px; }
-      .contact { align-items: flex-start; gap: 4px; }
-      .content section + section { margin-top: 29px; }
-      .site-footer { padding-block: 20px; }
-    }
-    @media (max-width: 480px) {
-      .profile { display: block; text-align: center; }
-      .portrait-frame { width: 180px; margin: 0 auto 20px; }
-      .profile h1 { font-size: 1.875rem; }
-      .profile-rule { margin: 18px auto; }
-      .contact { align-items: center; }
-      nav { column-gap: 17px; }
-      h2 { font-size: 1.25rem; }
-      .education-entry { flex-direction: column; }
-      .site-footer { flex-direction: column; }
-      .madrid-card { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 18px 22px 24px; text-align: center; }
-      .crest-link { margin-inline: auto; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .madrid-card .animated { animation: none; }
-      .madrid-card .crest-tilt { transition: none; transform: none !important; }
-    }
-
-    /* Original scenic artwork: Madrid, Ronaldo's No. 7, and alpine skiing. */
-    html { background: #edf3f8; }
-    body { position: relative; background: transparent; }
-    .background-scene { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: #edf3f8; }
-    .scene-art { position: absolute; inset: -2%; transform: translate3d(var(--scene-x, 0px), var(--scene-y, 0px), 0); transition: transform .8s ease-out; }
-    .scene-image { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; animation: landscape-breathe 32s ease-in-out infinite alternate; }
-    .scene-wash { position: absolute; inset: 0; background: linear-gradient(180deg, #edf3f830, transparent 22%, transparent 76%, #edf3f8b3), radial-gradient(ellipse at 50% 35%, #ffffff36, transparent 65%); }
-    .scene-crest { position: absolute; top: 13%; right: 5.5%; width: clamp(62px, 5.6vw, 106px); height: auto; opacity: .16; filter: drop-shadow(0 5px 12px #ffffffa0); animation: crest-float 9s ease-in-out infinite; }
-    .snow { position: absolute; inset: 0; overflow: hidden; }
-    .snowflake { position: absolute; top: -15%; left: var(--left); width: var(--size); height: var(--size); border-radius: 50%; background: #ffffff; opacity: .65; box-shadow: 0 0 5px #c1d4e670; animation: snow-fall var(--duration) linear infinite; animation-delay: var(--delay); }
-    .snowflake:nth-child(3n) { background: #adc3d8; opacity: .35; }
-    .snowflake:nth-child(7n) { background: #dccda7; opacity: .5; }
-    .scenic-animated { animation-play-state: paused; }
-    .motion-running .scenic-animated { animation-play-state: running; }
-    @keyframes landscape-breathe { from { transform: scale(1.015); } to { transform: scale(1.055) translateY(-.5%); } }
-    @keyframes snow-fall { from { transform: translate3d(0, -8vh, 0); } to { transform: translate3d(var(--drift), 125vh, 0); } }
-    .site-header { background: #f9fcffdf; backdrop-filter: blur(18px); border-top: 2px solid #b99a58; border-bottom-color: #cbd7e480; }
-    .header-inner { position: relative; min-height: 72px; }
-    .header-inner .motion-toggle { flex-shrink: 0; margin: 0; background: #ffffffb8; }
-    nav { gap: 8px 24px; }
     .mobile-scene-window { display: none; }
-    .layout {
-      position: relative;
-      z-index: 1;
-      flex: 0 0 auto;
-      width: min(70%, 1060px);
-      gap: 48px;
-      grid-template-columns: 236px minmax(0, 1fr);
-      margin-block: 38px 30px;
-      padding: 38px;
-      background: #ffffffed;
-      backdrop-filter: blur(14px);
-      border: 1px solid #ffffffed;
-      border-radius: 18px;
-      box-shadow: 0 24px 80px #152d4c1a, 0 2px 6px #152d4c06;
-    }
-    .portrait-frame { width: 204px; background: #ffffffd9; box-shadow: 0 10px 28px #2632470c; }
-    .content section + section { margin-top: 28px; }
-    .madrid-card { grid-template-columns: 124px minmax(0, 1fr); gap: 18px; padding: 12px 18px 12px 8px; background: linear-gradient(115deg, #f4f7fcaa, #ffffffaa 70%, #fffaf0aa); }
-    .crest-link { width: 124px; height: 144px; }
-    .crest-image { width: 100px; height: 100px; }
-    .crest-orbit { inset: 18px 8px; }
-    .crest-orbit.secondary { inset: 10px 0; }
-    .madrid-copy h3 { font-size: 1.35rem; }
-    .madrid-copy .interest-line { color: var(--muted); font-size: .875rem; margin-top: 10px; }
-    .site-footer { position: relative; z-index: 1; width: min(70%, 1060px); margin-top: auto; padding: 18px 24px; border-color: #ccd7e480; background: #f9fcffba; border-radius: 12px 12px 0 0; }
+
     @media (max-width: 1180px) {
-      .layout { width: calc(100% - 64px); grid-template-columns: 216px minmax(0, 1fr); padding: 30px; gap: 36px; }
-      .site-footer { width: calc(100% - 64px); }
-      .scene-wash { background: linear-gradient(180deg, #edf3f810, #edf3f840 65%, #edf3f8b0); }
+      .layout { width: calc(100% - 72px); grid-template-columns: 208px minmax(0, 1fr); gap: 40px; }
+      .layout::before { inset: -45px -28px -50px; }
+      .site-footer { width: calc(100% - 72px); }
+      .education-entry { flex-wrap: wrap; gap: 3px 20px; }
     }
     @media (max-width: 760px) {
       .scene-art { inset: 0; transform: none; transition: none; }
-      .scene-image { height: auto; width: 100%; object-fit: contain; object-position: top; margin-top: 100px; animation: none; }
-      .scene-wash { background: linear-gradient(180deg, transparent 0, transparent 200px, #edf3f8 440px); }
-      .scene-crest { top: 145px; right: 7%; width: 48px; opacity: .17; }
+      .scene-image { top: 0; bottom: auto; animation: none; mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%); -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%); }
+      .scene-wash { background: linear-gradient(180deg, transparent 0, transparent 130px, #edf4fb 430px); }
+      .scene-crest { top: 26px; right: 7%; width: 42px; opacity: .12; }
       .snowflake:nth-child(even) { display: none; }
-      .mobile-scene-window { display: block; position: relative; z-index: 1; height: min(56.25vw, 400px); }
-      .header-inner { gap: 6px; }
-      .header-inner .motion-toggle { position: absolute; right: 0; top: 12px; min-height: 34px; padding-inline: 10px; font-size: .8125rem; }
-      .header-inner nav { padding-top: 2px; gap: 2px 20px; }
-      .layout { grid-template-columns: minmax(0, 1fr); width: calc(100% - 32px); margin-block: 0 24px; padding: 26px; gap: 32px; border-radius: 16px; background: #ffffffed; }
-      .portrait-frame { width: 160px; }
-      .site-footer { width: calc(100% - 32px); font-size: .8125rem; }
-      .madrid-card { grid-template-columns: 124px minmax(0, 1fr); }
+      .mobile-scene-window { display: block; position: relative; z-index: 1; height: min(54vw, 360px); pointer-events: none; }
+      .layout { grid-template-columns: minmax(0, 1fr); width: calc(100% - 48px); gap: 36px; margin: -14px auto 35px; padding: 0; }
+      .layout::before { inset: -32px -16px -45px; background: radial-gradient(ellipse at 50% 40%, #f5f9fde6, #f5f9fda8 50%, #edf5fc40 76%, transparent 100%); filter: blur(16px); }
+      .profile { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 0 28px; text-align: left; align-items: start; }
+      .portrait-frame { grid-column: 1; grid-row: 1 / 7; width: 150px; margin: 0; }
+      .profile h1 { grid-column: 2; font-size: 1.65rem; margin-top: 3px; }
+      .profile .role, .profile .affiliation, .profile .contact { grid-column: 2; }
+      .profile-rule { grid-column: 2; margin: 16px 0; }
+      .contact { align-items: flex-start; gap: 4px; }
+      .content section + section { margin-top: 30px; }
+      .site-footer { width: calc(100% - 48px); padding-inline: 0; }
     }
     @media (max-width: 480px) {
-      .layout { padding: 24px 22px; }
-      .portrait-frame { width: 174px; }
-      .header-inner nav { column-gap: 17px; }
-      .madrid-card { grid-template-columns: minmax(0, 1fr); padding: 12px 18px 22px; gap: 8px; }
+      .profile { display: block; text-align: center; }
+      .portrait-frame { width: 166px; margin: 0 auto 22px; }
+      .profile h1 { font-size: 1.8rem; }
+      .profile-rule { margin: 19px auto; }
+      .contact { align-items: center; }
+      h2 { font-size: 1.2rem; }
+      .education-entry { flex-direction: column; }
+      .madrid-card { grid-template-columns: 82px minmax(0, 1fr); gap: 12px; }
+      .crest-link { transform: scale(.84); transform-origin: left center; }
+      .site-footer { flex-direction: column; text-align: center; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .scenic-animated { animation: none !important; }
-      .scene-art { transform: none !important; transition: none; }
+      html { scroll-behavior: auto; }
+      .scenic-animated, .madrid-card .animated { animation: none !important; }
+      .scene-art, .madrid-card .crest-tilt { transform: none !important; transition: none; }
       .snow { display: none; }
     }
   </style>
@@ -257,18 +179,6 @@
   </div>
 
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#profile">Zhoutian Han</a>
-      <nav aria-label="Main navigation">
-        <a href="#about">About</a>
-        <a href="#research">Research</a>
-        <a href="#education">Education</a>
-        <a href="#personal">Beyond Research</a>
-      </nav>
-      <button class="motion-toggle" id="motion-toggle" type="button" aria-controls="background-scene madrid-card" hidden>Pause motion</button>
-    </div>
-  </header>
 
   <div class="mobile-scene-window" aria-hidden="true"></div>
 
@@ -324,7 +234,6 @@
           <div class="madrid-copy">
             <h3>Hala Madrid!</h3>
             <p>Outside of research, I am a <strong>Real Madrid</strong> supporter.</p>
-            <p class="interest-line">Real Madrid · CR7 · Alpine skiing</p>
           </div>
         </div>
       </section>
@@ -339,12 +248,10 @@
     document.getElementById("year").textContent = new Date().getFullYear();
 
     const motionCard = document.getElementById("madrid-card");
-    const motionToggle = document.getElementById("motion-toggle");
     const sceneArt = document.getElementById("scene-art");
     const root = document.documentElement;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
-    let manuallyPaused = false;
     let motionActive = false;
     let pointerFrame = 0;
     let pointerX = 0;
@@ -358,23 +265,16 @@
     }
 
     function updateMotion() {
-      const paused = manuallyPaused || reducedMotion.matches;
-      motionActive = !paused && !document.hidden;
+      motionActive = !reducedMotion.matches && !document.hidden;
       root.classList.toggle("motion-running", motionActive);
       motionCard.classList.toggle("is-playing", motionActive);
-      motionToggle.textContent = paused ? "Play motion" : "Pause motion";
-      motionToggle.hidden = reducedMotion.matches;
       if (!motionActive) resetParallax();
     }
 
-    motionToggle.addEventListener("click", () => {
-      manuallyPaused = !manuallyPaused;
-      updateMotion();
-    });
     document.addEventListener("pointermove", (event) => {
       if (!motionActive || !finePointer.matches || event.pointerType === "touch") return;
-      pointerX = (event.clientX / window.innerWidth - .5) * 10;
-      pointerY = (event.clientY / window.innerHeight - .5) * 7;
+      pointerX = (event.clientX / window.innerWidth - .5) * 7;
+      pointerY = (event.clientY / window.innerHeight - .5) * 5;
       if (pointerFrame) return;
       pointerFrame = requestAnimationFrame(() => {
         sceneArt.style.setProperty("--scene-x", pointerX.toFixed(2) + "px");
